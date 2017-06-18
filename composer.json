@@ -1,0 +1,28 @@
+{
+    "name": "pleonovich/LOG",
+    "description": "Simple way to write log information into txt file from PHP.",
+    "type": "library",
+    "version": "1.0.0",
+    "keywords": [
+        "php",
+        "log"
+    ],
+    "homepage": "https://github.com/pleonovich/LOG",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Pavel Leonovich",
+            "email": "leonovich.pavel@gmail.com",
+            "role": "lead"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/pleonovich/LOG/issues"
+    },
+    "require": {
+        "php": ">=5.0.0"
+    },
+    "autoload": {
+        "files": ["log.class.php"]
+    }
+}
