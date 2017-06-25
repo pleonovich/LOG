@@ -108,7 +108,7 @@ class LOG
      */
     public static function border($title = 'BORDER')
     {
-        self::writeLog(str_repeat("/", 30).$title.str_repeat("/", 100)."\n");
+        self::writeLog(str_repeat("/", 10).$title.str_repeat("/", 80)."\n");
     }
     
     private function buildTree($array, $tabsnum = 1)
