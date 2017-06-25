@@ -1,6 +1,6 @@
 <?php
 /**
- * LOG CLASS 1.0.0
+ * LOG CLASS 1.0.1
  *
  * @author leonovich.pavel@gmail.com
  * Simple way to write log information into txt file from PHP
@@ -24,7 +24,8 @@
 class LOG
 {
     
-    public static $path = ""; // log file saving path
+    public static $path = "log"; // log file saving path
+    public static $show_caller = false; // log file saving path
     
     /**
      * Set saving path
@@ -95,9 +96,9 @@ class LOG
     {
         $filename = ($filename==null) ? date('d.m.Y').".log.txt" : date('d.m.Y').".".$filename.".log.txt";
         if (!empty(self::$path)) {
-            return ".".DIRECTORY_SEPARATOR.self::$path.DIRECTORY_SEPARATOR.$filename;
+            return __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.self::$path.DIRECTORY_SEPARATOR.$filename;
         } else {
-            return ".".DIRECTORY_SEPARATOR.$filename;
+            return  __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$filename;
         }
     }
     
@@ -124,16 +125,16 @@ class LOG
         return $log;
     }
     
-    private static function renderArray($array)
+    private static function renderArray($array, $title)
     {
         $log = self::getDataDump($array)."\n";
         $log.= self::buildTree($array);
-        return self::getDateTime()."".self::getCaller()." ".$log;
+        return self::getDateTime()."".self::getTtitle($title)."".self::getCaller()." ".$log;
     }
         
-    private static function renderString($text)
+    private static function renderString($text, $title)
     {
-        $log = self::getDateTime()."".self::getCaller()." ".self::getDataDump($text)."\n";
+        $log = self::getDateTime()."".self::getTtitle($title)."".self::getCaller()." ".self::getDataDump($text)."\n";
         return $log;
     }
     
@@ -161,6 +162,7 @@ class LOG
     
     private static function getCaller()
     {
+        if(!self::$show_caller) return null;
         $info = debug_backtrace();
         $last = end($info);
         $log = "[".$last['file']." line:".$last['line']."]";
@@ -168,6 +170,14 @@ class LOG
             $log.="[class:".$last['class']."]";
         }
         return $log;
+    }
+
+    private static function getTtitle( $title )
+    {
+        if ($title!=null) {
+           return "[{$title}]";
+        }
+        return null;   
     }
     
     private static function getDateTime()
@@ -177,11 +187,8 @@ class LOG
     
     private static function writeLog($text, $extra = null, $filename = null)
     {
-        $fpath = self::filePath($filename);
-        $fd = fopen($fpath, 'a+') or die("LOG: failed to write log!");
-        if ($extra!=null) {
-            $text="[{$extra}]".$text;
-        }
+        $fpath = self::filePath($filename); echo $fpath;
+        $fd = fopen($fpath, 'a+') or die("LOG: failed to write log!");        
         fwrite($fd, $text);
         fclose($fd);
     }
