@@ -1,5 +1,5 @@
 {
-    "name": "pleonovich/LOG",
+    "name": "pleonovich/log",
     "description": "Simple way to write log information into txt file from PHP.",
     "type": "library",
     "version": "1.0.0",
@@ -7,7 +7,7 @@
         "php",
         "log"
     ],
-    "homepage": "https://github.com/pleonovich/LOG",
+    "homepage": "https://github.com/pleonovich/log",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -17,7 +17,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/pleonovich/LOG/issues"
+        "issues": "https://github.com/pleonovich/log/issues"
     },
     "require": {
         "php": ">=5.0.0"
